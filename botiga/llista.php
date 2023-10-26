@@ -30,11 +30,13 @@
         // output data of each row
         while($row = $result->fetch_assoc()) {
           echo '
-          <div class="bg-success border border-3 border-black m-2" style="width: 200px;" >
-            <img  class="img-fluid" style="height: 200px; width: 200px;" src="'.$row["src"].'" alt="foto">
-            <h3>'.$row["nom"].'</h3>
-            <h2>'.$row["preu"].'</h2>
-          </div>
+          <a href = "'.'./fitxa.php?codi='.$row["id"].'">
+              <div class="bg-success border border-3 border-black m-2" style="width: 200px;" >
+                <img  class="img-fluid" style="height: 200px; width: 200px;" src="'.$row["src"].'" alt="foto">
+                <h3>'.$row["nom"].'</h3>
+                <h2>'.$row["preu"].'</h2>
+              </div>
+          </a>
           ';
          // echo "id: " . $row["id"]. " - Name: " . $row["nom"]. " src:" . $row["src"]." preu:".$row["preu"]. "<br>";
         }
