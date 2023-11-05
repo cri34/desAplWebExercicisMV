@@ -33,7 +33,10 @@
                             <h1>'.$row["nom"].'</h1>
                             <img class = " w-75 p-2" src="'.$row["src"].'" alt="foto" style = "">
                             <h3>'.$row["preu"].'</h3>
-                            <button class = "col-10 col-md-4" style = "height:2rem;">comprar</button>
+                            <form action = "./carreto.php"  method="get">
+                                <input type="hidden" name="codi" value="'.$_GET["codi"].'">
+                                <input type="submit"  value="comprar" class="col-10 col-md-4" style="height:2rem;">
+                            </form>
                         </div>
                     </div>
                     <div style="height:100vh; " class = " row col-8 justify-content-center align-items-start bg-secondary-subtle">
