@@ -14,12 +14,13 @@
       <div class="row col-sm-10 col-md-7 col-lg-6 col-12 justify-content-center text-center">
       
 <?php
+include 'connexioBDD.php';
 session_start();
 if(isset($_GET["compraRealitzada"])){
   session_destroy();
 }else{
   introduirArticleCarreto();
-  carreto();
+  carreto($conn);
 }
 
 function introduirArticleCarreto(){
@@ -32,15 +33,9 @@ function introduirArticleCarreto(){
  }
 }
 
-function carreto(){
-$servername = "localhost";
-$username = "admin";
-$password = "secret";
-$dbname = "botiga";
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+function carreto($conn){
+
+
 $codisIn = implode(', ', $_SESSION["carreto"]);
 $sql = 'SELECT * FROM productes WHERE id IN('.$codisIn.')';
 $result = $conn->query($sql);

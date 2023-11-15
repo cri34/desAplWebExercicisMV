@@ -10,17 +10,7 @@
 <body>
     <div class="container-fluid overflow-hidden" style="height:100vh;">
     <?php
-        $servername = "localhost";
-        $username = "admin";
-        $password = "secret";
-        $dbname = "botiga";
-    
-         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        include 'connexioBDD.php';
     
         $sql = "SELECT * FROM productes where id =".$_GET["codi"] ;
         $result = $conn->query($sql);
