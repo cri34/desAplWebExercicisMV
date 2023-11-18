@@ -28,21 +28,13 @@ session_start();
                 $codisIn = implode(', ', $_SESSION["carreto"]);
                 if (count($_SESSION["carreto"]) > $minLength) {
                     $sql = 'SELECT * FROM productes WHERE id IN(' . $codisIn . ')';
-                    echo "prueba:".$sql;
                     $result = $conn->query($sql);
                     $total = 0;
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            echo '
-                                <div class="row justify-content-center bg-dark border border-3 border-secondary-subtle m-2" style="height: 50px;" >
-                                    <a class ="row justify-content-around text-white text-decoration-none" href = "' . './fitxa.php?codi=' . $row["id"] . '">
-                                        <img  class= col "img-fluid" style="height: 50px; width: 50px;" src="' . $row["src"] . '" alt="foto">
-                                        <h3 class="col">' . $row["nom"] . '</h3>
-                                        <h2 class="col">' . $row["preu"] . '</h2>
-                                    </a>
-                                </div>
-                            ';
-                            $total += $row["preu"];
+                            $qtItems = contarElementsRepetits($_SESSION["carreto"], $row["id"]);
+                            echo pintarItemCarreto($row["id"], $row["nom"], $row["src"], $row["preu"], $qtItems);
+                            $total += $row["preu"] *  $qtItems;
                         }
                     } else {
                         echo "0 results";
@@ -51,6 +43,27 @@ session_start();
 
                     echo '<h3 class="row justify-content-center bg-dark text-white border border-3 border-secondary-subtle m-2" style="height: 50px;">total : ' . $total . '</h3>';
                 }
+            }
+
+            function contarElementsRepetits($array, $valorComprovant)
+            {
+                $elementsRepetits = array_count_values($array);
+                $valor = "" . $valorComprovant;
+                return $elementsRepetits[$valor];
+            }
+
+            function pintarItemCarreto($id, $nom, $src, $preu, $qtItems)
+            {
+                return '<div class="row justify-content-center bg-dark border border-3 border-secondary-subtle m-2" style="height: 100px;" >
+                                <a class ="row justify-content-around align-items-center text-white text-decoration-none" href = "' . './fitxa.php?codi=' . $id . '">
+                                    <div class="row col h-100" >
+                                        <img  class="col img-fluid" src="' . $src . '" alt="foto">
+                                    </div>
+                                    <h2 class="col">' . $nom . '</h2>
+                                    <h2 class="col">' . $preu . '</h2>
+                                    <h2 class="col">x' . $qtItems . '</h2>
+                                </a>
+                            </div>';
             }
 
             ?>
