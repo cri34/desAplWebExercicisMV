@@ -20,18 +20,18 @@
                 <div class=" row justify-content-center align-items-center text-center ">
                     <div class =" row col justify-content-center "style="height:100vh;">
                         <div class ="row justify-content-center bg-secondary" >
-                            <h1>'.$row["nom"].'</h1>
-                            <img class = " w-75 p-2" src="'.$row["src"].'" alt="foto" style = "">
-                            <h3>'.$row["preu"].'</h3>
-                            <form action = "./carreto.php"  method="get">
-                                <input type="hidden" name="codi" value="'.$_GET["codi"].'">
+                            <h1>' . $row["nom"] . '</h1>
+                            <img class = " w-75 p-2" src="' . $row["src"] . '" alt="foto" style = "">
+                            <h3>' . $row["preu"] . '</h3>
+                            <form action = "alta-carreto.php"  method="get">
+                                <input type="hidden" name="codi" value="' . $_GET["codi"] . '">
                                 <input type="submit"  value="comprar" class="col-10 col-md-4" style="height:2rem;">
                             </form>
                         </div>
                     </div>
                     <div style="height:100vh; " class = " row col-8 justify-content-center align-items-start bg-secondary-subtle">
                         <h1>info producte</h1>
-                        <p class="col-10">'.$row["descripcio"].'</p>
+                        <p class="col-10">' . $row["descripcio"] . '</p>
                     </div>
                 </div>
                 ';
