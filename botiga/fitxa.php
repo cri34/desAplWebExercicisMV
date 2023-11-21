@@ -12,7 +12,7 @@
     <?php
         include 'connexioBDD.php';
     
-        $sql = "SELECT * FROM productes where id =".$_GET["codi"] ;
+        $sql = 'SELECT * FROM productes where id ='.$_GET["codi"];
         $result = $conn->query($sql);
 
         while($row = $result->fetch_assoc()) {

@@ -11,18 +11,7 @@
    <div class= "container-fluid  overflow-hidden">
     <div class="row justify-content-center text-center">
       <?php
-      $servername = "localhost";
-      $username = "admin";
-      $password = "secret";
-      $dbname = "botiga";
-      
-      // Create connection
-      $conn = new mysqli($servername, $username, $password, $dbname);
-      // Check connection
-      if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-      }
-      
+      include 'connexioBDD.php';
       $sql = "SELECT * FROM productes";
       $result = $conn->query($sql);
       

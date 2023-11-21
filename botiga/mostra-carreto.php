@@ -56,8 +56,10 @@ session_start();
             {
                 return '<div class="row justify-content-center bg-dark border border-3 border-secondary-subtle m-2" style="height: 100px;" >
                                 <a class ="row justify-content-around align-items-center text-white text-decoration-none" href = "' . './fitxa.php?codi=' . $id . '">
-                                    <div class="row col h-100" >
-                                        <img  class="col img-fluid" src="' . $src . '" alt="foto">
+                                    <div class="row p-0" style="width:100px">
+                                        <div class="row col h-100 p-0" >
+                                            <img  class="col img-fluid" src="' . $src . '" alt="foto">
+                                        </div>
                                     </div>
                                     <h2 class="col">' . $nom . '</h2>
                                     <h2 class="col">' . $preu . '</h2>

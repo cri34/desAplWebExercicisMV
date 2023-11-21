@@ -14,15 +14,17 @@ if (isset($_POST["submit"])) {
     $preu = floatval($_POST["preu"]);
     $descripcio = $_POST["descripcio"];
     if ($_FILES["files"]["error"] > 0) {
-        echo "Error: error durant la carrega de l'arxiu codi Error : " . $_FILES["files"]["error"];
-        exit;
+       // echo "Error: error durant la carrega de l'arxiu codi Error : " . $_FILES["files"]["error"];
+       header('Location: alta-producte.php');
+       exit;
     }
     if (valorsValides($nom, $preu, $descripcio)) {
 
         $fileType = pathinfo($_FILES["files"]["name"], PATHINFO_EXTENSION);
         if ($fileType != "jpg") {
             //msg error
-            echo "la imatge ha de ser format 'jpg'";
+            //echo "la imatge ha de ser format 'jpg'";
+            header('Location: alta-producte.php');
             exit;
         }
         $nomArxiu = "camisa" . $id . ".jpg";
@@ -32,18 +34,21 @@ if (isset($_POST["submit"])) {
         $insert = 'INSERT into productes (nom,src,preu,descripcio) values ("' . $nom . '","' . $src . '","' . $preu . '","' . $descripcio . '")';
         $result = $conn->query($insert);
         header('Location: llista.php');
+        exit;
     }
-    echo "Error,camps amb contingut invalid";
+    header('Location: alta-producte.php');
+    //echo "Error,camps amb contingut invalid";
 
 }
 
 function valorsValides($nom, $preu, $descripcio)
 {
     $preuMin = 0.00;
+    $preuMax = 100;
     $nomValid = isset($nom) && !empty($nom);
-    $preuValid = isset($preu) && $preu > $preuMin;
+    $preuValid = isset($preu) && $preu > $preuMin && $preu < $preuMax;
     $descripcioValid = isset($descripcio) && !empty($descripcio);
-    echo "nomValid: ".$nomValid ." preuValid : ".$preuValid." descripcioValida: ".$descripcioValid;
+    //echo "nomValid: ".$nomValid ." preuValid : ".$preuValid." descripcioValida: ".$descripcioValid;
     return $nomValid && $preuValid && $descripcioValid;
 }
 

@@ -20,7 +20,7 @@ if(!isset($_SESSION["login"])){
 <h1 class="text-center text-white">Alta producte</h1>
 <form class="row justify-content-center" action="add-producte.php" method="post" enctype="multipart/form-data">
     <input class="col form-control" type="text" name="nom" placeholder="nom">
-    <input class="col form-control mx-2" type="number" step="0.01" name="preu" placeholder="preu">
+    <input class="col form-control mx-2" type="number" step="0.01" name="preu" min="0.01" max="99.99" placeholder="preu">
     <input class="col form-control" type="text" name="descripcio" placeholder="descripcio">
     <input class="col-12 form-control m-2" type="file" name="files">
     <input class="col-12 btn btn-primary m-2" type="submit" value="submit" name="submit">
