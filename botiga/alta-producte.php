@@ -2,7 +2,22 @@
 session_start();
 if(!isset($_SESSION["login"])){
     header('Location: login.php');
+    exit;
 }
+$error;
+if(isset($_COOKIE["ErrorInputsInvalid"])){
+    $error=$_COOKIE["ErrorInputsInvalid"]; 
+    setcookie("ErrorInputsInvalid", "", time() - 3600, "/");  
+}
+if(isset($_COOKIE["ErrorFileTypeInvalid"])){
+    $error=$_COOKIE["ErrorFileTypeInvalid"];
+    setcookie("ErrorFileTypeInvalid", "", time() - 3600, "/");
+}
+if(isset($_COOKIE["ErrorCodeFile"])){
+    $error=$_COOKIE["ErrorCodeFile"];
+    setcookie('ErrorCodeFile', '', time() - 3600, "/");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,5 +40,13 @@ if(!isset($_SESSION["login"])){
     <input class="col-12 form-control m-2" type="file" name="files">
     <input class="col-12 btn btn-primary m-2" type="submit" value="submit" name="submit">
 </form>
+<?php
+
+function printError($error){
+    echo '<p class="bg-danger text-center">'.$error.'</p>';
+}
+printError($error);
+$error="";
+?>
 </body>
 </html>

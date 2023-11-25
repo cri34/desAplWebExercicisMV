@@ -14,20 +14,21 @@ if (isset($_POST["submit"])) {
     $preu = floatval($_POST["preu"]);
     $descripcio = $_POST["descripcio"];
     if ($_FILES["files"]["error"] > 0) {
-       // echo "Error: error durant la carrega de l'arxiu codi Error : " . $_FILES["files"]["error"];
+        $codeErrorFile = "error durant la carrega de l'arxiu codi Error : " . $_FILES["files"]["error"];
+        setcookie("ErrorCodeFile", $codeErrorFile);
        header('Location: alta-producte.php');
        exit;
     }
     if (valorsValides($nom, $preu, $descripcio)) {
 
         $fileType = pathinfo($_FILES["files"]["name"], PATHINFO_EXTENSION);
-        if ($fileType != "jpg") {
-            //msg error
-            //echo "la imatge ha de ser format 'jpg'";
+        if (!fileTypeValid($fileType)) {
+            $errorFileType = "el tipus d'arxiu de la imatge es incorrecte nomes s'acepten formats d'imatge";
+            setcookie("ErrorFileTypeInvalid", $errorFileType);
             header('Location: alta-producte.php');
             exit;
         }
-        $nomArxiu = "camisa" . $id . ".jpg";
+        $nomArxiu = "camisa" . $id . ".".$fileType;
         $target_dir = "./imatges/";
         $src = $target_dir . $nomArxiu;
         moureArxiu($target_dir, $nomArxiu);
@@ -36,11 +37,22 @@ if (isset($_POST["submit"])) {
         header('Location: llista.php');
         exit;
     }
+    $errorInputsInvalid = "Error,camps amb contingut invalid";
+    setcookie("ErrorInputsInvalid", $errorInputsInvalid);
     header('Location: alta-producte.php');
     //echo "Error,camps amb contingut invalid";
 
 }
-
+function fileTypeValid($fileType){
+    $typeToCheck= strtolower($fileType);
+    $validTipes = ["png","jpg","gif","tif","bmp"];
+    $lenght = count($validTipes);
+    for($i = 0;$i < $lenght;$i++){
+        if($validTipes[$i] === $typeToCheck)
+            return true;
+    }
+    return false;
+}
 function valorsValides($nom, $preu, $descripcio)
 {
     $preuMin = 0.00;
